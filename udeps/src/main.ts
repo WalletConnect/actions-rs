@@ -12,10 +12,13 @@ async function run() {
     /* Make sure cargo is available before we do anything */
     const cargo = await rustCore.Cargo.get();
 
+    core.debug(`[udeps] getting inputs`)
     const inputs = getActionInputs();
+    core.debug(`[udeps] resolving config`)
     const config = await resolveConfig(inputs);
 
     const outputDir = `${os.tmpdir()}/udeps`;
+    core.debug(`[udeps] creating output directory ${outputDir}`);
     await io.mkdirP(outputDir);
 
     core.info(`[udeps] downloading cargo-udeps from ${config.downloadUrl}`);
